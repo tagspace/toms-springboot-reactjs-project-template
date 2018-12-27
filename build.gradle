@@ -1,0 +1,99 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.5.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+//makes NodeTask available
+plugins {
+	id "com.moowork.node" version "0.12"
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+//builds fat jar
+jar {
+	baseName = 'template'
+	version = '0.0.1-SNAPSHOT'
+}
+
+group = 'com.template'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile('com.sendgrid:sendgrid-java:3.0.9')
+	compile('org.flywaydb:flyway-core:5.1.4')
+	compile('org.postgresql:postgresql:42.1.1.jre7')
+	compile("org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}")
+	compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
+	compile("org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}")
+	compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+	compile("org.springframework.session:spring-session-data-redis:${springBootVersion}")
+	compile('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect')
+	compile('redis.clients:jedis:2.9.0')
+}
+
+//runs webpack
+task webpack(type: NodeTask) {
+	script = file('node_modules/webpack/bin/webpack.js')
+	args = ['-p']
+}
+
+//node is needed for webpack
+node {
+	// Version of node to use.
+	version = '6.10.2'
+
+	// Version of npm to use.
+	npmVersion = '3.10.10'
+
+	// Base URL for fetching node distributions (change if you have a mirror).
+	distBaseUrl = 'https://nodejs.org/dist'
+
+	// If true, it will download node using above parameters.
+	// If false, it will try to use globally installed node.
+	download = true
+
+	// Set the work directory for unpacking node
+	workDir = file("./build")
+
+	// Set the work directory where node_modules should be located
+	nodeModulesDir = file("./")
+}
+
+//builds the jar, and then moves it into the root directory (naming it 'app.jar')
+task buildJar(type: Copy, dependsOn: [clean, npmInstall, webpack, build]) {
+	from jar.archivePath
+	into project.rootDir
+	rename {
+		'app.jar'
+	}
+}
+
+//cleans up after building the jar
+task stage(type: Delete, dependsOn: [buildJar]) {
+	//cleanup (to keep slug size small on Heroku)
+	delete 'build'
+}
+
+clean << {
+	project.file('app.jar').delete()
+}
+
+stage.mustRunAfter(clean)
+build.mustRunAfter(webpack)
+webpack.mustRunAfter(npmInstall)
+

@@ -1,0 +1,9 @@
+node_modules/*
+src/main/resources/static/js/bundle.js
+src/main/resources/static/js/bundle.map
+.gradle/*
+.idea/*
+out/*
+build/*
+app.jar
+classes/*

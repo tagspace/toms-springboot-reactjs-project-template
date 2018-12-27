@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/pages">
+<head>
+    
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    This is the content
+
+    <div id="root"></div>
+   
+</div>
+<div layout:fragment="scripts">
+    <script th:src=@{/js/index.js}></script>
+    <script th:if="${overrideBundle}" th:src=${overrideBundle}></script>
+    <script th:unless="${overrideBundle}" th:src=@{/js/bundle.js}></script>
+</div>
+</body>
+</html>

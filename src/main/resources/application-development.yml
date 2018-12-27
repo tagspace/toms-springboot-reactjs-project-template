@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mydatabase
+project:
+  bundleJs: http://localhost:3000/js/bundle.js
+  encryption:
+    password: hello123
+  redirectUrl: http://localhost:8080/login/auth

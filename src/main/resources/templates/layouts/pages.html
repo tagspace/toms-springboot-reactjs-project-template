@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>My Website</title>
+    <meta name="description" content="This is my website."/>
+    
+    <!-- <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="@mytwitterhandle"/>
+    <meta name="twitter:title" content="This is my website"/>
+    <meta name="twitter:description" content="This is my website" />
+    <meta name="twitter:creator" content="@mytwitterhandle"/>
+    <meta name="twitter:image" content="https://mywebsite.com/img/background.png"/> -->
+
+    <!-- <meta property="og:title" content="This is my website" />
+    <meta property="og:url" content="https://mywebsite.com" />
+    <meta property="og:image" content="https://mywebsite.com/img/fb.png" />
+    <meta property="og:description" content="This is my website." />
+    <meta property="og:site_name" content="My Website" />
+    <meta property="fb:admins" content="123" /> -->
+
+    <link rel="icon" href="/img/fav.png" type="image/x-icon"/>
+    <link rel="shortcut icon" href="/img/fav.png" type="image/x-icon"/>
+    <link th:rel="stylesheet" th:href=@{/css/bootstrap.min.css} />
+    <link th:rel="stylesheet" th:href=@{/css/font-family-lato.css} />
+</head>
+<body>
+
+    <div class="app">
+        <div class="content" layout:fragment="content">
+            Content goes here
+        </div>
+    </div>
+    <th:block layout:fragment="scripts"></th:block>
+</body>
+</html>

@@ -1,0 +1,1 @@
+web: java -Xmx250m -Xss256k -XX:MaxMetaspaceSize=80M -javaagent:./lib/heroku-javaagent-2.0.jar=stdout=true,lxmem=true -Dserver.port=$PORT -Dspring.profiles.active=heroku -cp ./app.jar org.springframework.boot.loader.JarLauncher

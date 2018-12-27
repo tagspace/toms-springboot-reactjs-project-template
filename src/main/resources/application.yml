@@ -1,0 +1,39 @@
+#
+# NOTE: 'missing' values are provided by specific profiles, e.g. application-development.yml
+#       To set the active profile, use an environment variable, e.g. -Dspring.profiles.active=development,redis
+#
+# more options: https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+#
+#debug: true #makes spring boot log out all the configuration decisions it has made
+logging:
+  level:
+    org.springframework.web: INFO #if DEBUG shows debug logs for routing problems
+    org.springframework.security: INFO
+multipart:
+  max-file-size: 5MB
+  max-request-size: 10MB
+project:
+  bundleJs: /js/bundle.js
+sendgrid:
+  client:
+    apiKey: missing
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: missing
+  flyway:
+    enabled: true
+    locations: classpath:db/migrations
+  redis:
+    host: localhost #this is overridden in RedisConfig when 'heroku' profile is active
+    port: 6379
+  resources:
+    chain:
+      strategy:
+        content:
+          paths: /js/**,/css/**
+          enabled: true
+  thymeleaf:
+    cache: false #disable template caching for development mode
+
+

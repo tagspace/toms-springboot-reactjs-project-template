@@ -1,0 +1,20 @@
+server:
+  compression:
+    enabled: true #gzips resources over a certain size
+    mime-types: text/html,text/xml,text/css,text/plain,application/json,application/xml,application/javascript
+spring:
+  datasource:
+    url: ${JDBC_DATABASE_URL} #https://devcenter.heroku.com/articles/connecting-to-relational-databases-on-heroku-with-java#using-the-jdbc_database_url
+    username: ${JDBC_DATABASE_USERNAME}
+    password: ${JDBC_DATABASE_PASSWORD}
+  resources:
+    cache:
+      period: 86401 # 1 day = 86400 seconds
+  thymeleaf:
+    cache: true #enable template caching for production mode
+sendgrid:
+  client:
+    apiKey: ${SENDGRID_API_KEY}
+project:
+  encryption:
+    password: ${ENCRYPTION_KEY}

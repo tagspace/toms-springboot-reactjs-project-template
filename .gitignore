@@ -1,6 +1,6 @@
 node_modules/*
-src/main/resources/static/js/bundle.js
-src/main/resources/static/js/bundle.map
+src/main/resources/static/js/*bundle.js
+src/main/resources/static/js/*bundle.js.map
 .gradle/*
 .idea/*
 out/*

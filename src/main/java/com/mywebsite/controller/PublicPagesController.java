@@ -13,13 +13,13 @@ public class PublicPagesController {
 
     static Logger log = LoggerFactory.getLogger(PublicPagesController.class.getName());
 
-    @Value("${project.bundleJs}")
+    @Value("${project.bundles.home}")
     private String bundleJs;
 
     @RequestMapping("/")
     public String index(Model model) {
 
-        if(!"/js/bundle.js".equals(bundleJs)) {
+        if(!"/js/home_bundle.js".equals(bundleJs)) {
             model.addAttribute("overrideBundle", bundleJs);
         }
 
